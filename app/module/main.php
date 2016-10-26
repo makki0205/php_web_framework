@@ -1,6 +1,7 @@
 <?php
-namespace FOO\app;
+namespace app;
 require_once($_SERVER['DOCUMENT_ROOT']."/app/controller.php");
+require_once($_SERVER['DOCUMENT_ROOT']."/app/module/mysql.php");
 
 class Router{
 	private $uri;	//URI
@@ -59,7 +60,7 @@ class Router{
 			$method = array( $class, $this->posts[$this->uri]);
 			call_user_func($method);
 		}else{
-			echo $this->uri;
+			echo $this->uri." is ";
 			echo "404";
 		}
 	}
@@ -70,7 +71,7 @@ class Router{
 	//put
 	private function putAdimin(){
 		if ($this->puts[$this->uri]) {
-			$class = new ntroller();
+			$class = new cntroller();
 			$method = array( $classco, $this->puts[$this->uri]);
 			call_user_func($method);
 		}else{
