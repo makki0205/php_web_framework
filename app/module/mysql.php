@@ -7,13 +7,12 @@ class Model{
 	private $user;
 	private $password;
 	function __construct(){
-		$host = '127.0.0.1';
-		$user = 'taiki';
-		$password = 'hoge';
+		$settings = parse_ini_file($_SERVER['DOCUMENT_ROOT']."/database.ini");
+		$host = $settings['HOST'];
+		$user = $settings['USER'];
+		$password = $settings['PASSWORD'];
 		try{
 			$dbh = new PDO('mysql:host='.$host.';dbname=phptest',$user,$password);
-			foreach ($dbh->query('SELECT * from users') as $row) {
-			}
 			$dbh = null;
 		}catch(PDOException $e){
 			print "エラー!: " . $e->getMessage() . "<br/>";
@@ -55,7 +54,10 @@ class Model{
     		die();
     		return null;
 		}
+		return $check;
+
 	}
+	// insert文を実行するメソッド
 	public function insert($query){
 		try{
 			$dbh = new PDO('mysql:host='.$this->host.';dbname=phptest',$this->user,$this->password);
@@ -65,6 +67,7 @@ class Model{
     		die();
     		return null;
 		}
+		return $check;
 	}
 	public function delete($query){
 		try{
@@ -75,6 +78,7 @@ class Model{
     		die();
     		return null;
 		}
+		return $check;
 	}
 
 

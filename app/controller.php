@@ -2,6 +2,7 @@
 namespace app;
 use database\Model as Model;
 class controller{
+	// tokenをCheckする
 	private function tokenCheck(){
 		$model = new Model;
 		$name = $model->select("select name from users where token=\"".$_POST['token']."\"");
@@ -11,6 +12,7 @@ class controller{
 		}
 		return $name[0]['name'];
 	}
+	// 記事の取得
 	public function index(){
 		$model = new Model;
 		if (isset($_GET['id'])) {
@@ -25,15 +27,16 @@ class controller{
 			echo json_encode(array_merge($data,array("errMessage"=>"")));
 		}
 	}
+	// 記事の追加
 	public function store(){
 		$this->tokenCheck();
 		$model =new Model;
 		if (!isset($_POST['title'])) {echo json_encode(["errMessage"=>"title wrong"]);exit;}
 		if (!isset($_POST['body']))  {echo json_encode(["errMessage"=>"body wrong"]);exit;}
-		// echo "insert into posts (title,body) values('".$_POST['title']."','".$_POST['body']."')";
 		$check = $model->insert("insert into posts (title,body) values('".$_POST['title']."','".$_POST['body']."')");
 		echo json_encode(["errMessage"=>$check]);
 	}
+	// 記事の削除
 	public function delete(){
 		$this->tokenCheck();
 		$model =new Model;
@@ -41,6 +44,7 @@ class controller{
 		$check = $model->delete("delete from posts where id=".$_POST['id']);
 		echo json_encode(["errMessage"=>$check]);
 	}
+	//記事の更新
 	public function updata(){
 		$this->tokenCheck();
 		$model = new Model;
@@ -57,6 +61,7 @@ class controller{
 		}
 		$check = $model->update("update posts set");
 	}
+	// トークンの取得
 	public function getToken(){
 		$model = new Model;
 		$password = $model->select( "select password from users where name=\"".$_POST['name']."\"" );
