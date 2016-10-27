@@ -28,6 +28,7 @@ app/controller.php内に記述
 
 ## データベースの設定
 database.ini内に記述
+
 ### 例
 
 ```
