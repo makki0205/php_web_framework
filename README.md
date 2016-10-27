@@ -29,10 +29,11 @@ app/controller.php内に記述
 ## データベースの設定
 database.ini内に記述
 ### 例
+
 ```
-HOST = 127.0.0.1
-USER = taiki
-PASSWORD = hoge
+HOST = 127.0.0.1     
+USER = taiki     
+PASSWORD = hoge      
 ```
 
 # 自作フレームワークを用いたwebAPI
