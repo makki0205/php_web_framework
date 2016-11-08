@@ -24,5 +24,7 @@ $con = new $controller[0];
 // メソッドテスト
 if (!method_exists($con,$controller[1]) ) {
 	echo $controller[0] ." : : ". $controller[1] ."() : Method not found";
+	exit;
+	
 }
 $con->$controller[1]();
