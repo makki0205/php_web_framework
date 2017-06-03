@@ -7,6 +7,10 @@ namespace Composer\Autoload;
 class ComposerStaticInit6a33c920323215f0855361223c73cc31
 {
     public static $prefixLengthsPsr4 = array (
+        's' => 
+        array (
+            'sys\\' => 4,
+        ),
         'm' => 
         array (
             'myapp\\' => 6,
@@ -14,10 +18,22 @@ class ComposerStaticInit6a33c920323215f0855361223c73cc31
     );
 
     public static $prefixDirsPsr4 = array (
+        'sys\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sys',
+        ),
         'myapp\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),
+    );
+
+    public static $classMap = array (
+        'IdiormMethodMissingException' => __DIR__ . '/..' . '/j4mie/idiorm/idiorm.php',
+        'IdiormResultSet' => __DIR__ . '/..' . '/j4mie/idiorm/idiorm.php',
+        'IdiormString' => __DIR__ . '/..' . '/j4mie/idiorm/idiorm.php',
+        'IdiormStringException' => __DIR__ . '/..' . '/j4mie/idiorm/idiorm.php',
+        'ORM' => __DIR__ . '/..' . '/j4mie/idiorm/idiorm.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
@@ -25,6 +41,7 @@ class ComposerStaticInit6a33c920323215f0855361223c73cc31
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit6a33c920323215f0855361223c73cc31::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit6a33c920323215f0855361223c73cc31::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit6a33c920323215f0855361223c73cc31::$classMap;
 
         }, null, ClassLoader::class);
     }

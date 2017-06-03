@@ -1,7 +1,11 @@
 {
     "autoload": {
         "psr-4": {
-            "myapp\\": "src/"
+            "myapp\\": "src/",
+            "sys\\": "vendor/sys"
         }
+    },
+    "require": {
+        "j4mie/idiorm": "^1.5"
     }
 }

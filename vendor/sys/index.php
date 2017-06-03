@@ -1,6 +1,6 @@
 <?php
 use myapp\controllers;
-
+use sys\http\Request;
 //データ取り出し
 $uri = $_SERVER["REQUEST_URI"];
 $uri = strtok($uri, '?');
@@ -25,6 +25,12 @@ $con = new $controller[0];
 if (!method_exists($con,$controller[1]) ) {
 	echo $controller[0] ." : : ". $controller[1] ."() : Method not found";
 	exit;
-	
+
 }
-$con->$controller[1]();
+
+$req = Request::getInstance();
+ORM::configure('mysql:host=' .$req->env('HOST'). ';dbname=' .$req->env('HOST'));
+ORM::configure('username', $req->env('HOST'));
+ORM::configure('password', $req->env('PASSWORD'));
+
+$con->$controller[1]($req);
