@@ -1,10 +1,6 @@
 <?php
 namespace sys\http;
 
-/**
- *
- */
-
 class Request
 {
     private static $instance;

@@ -1,14 +1,14 @@
 <?php
 namespace myapp\controllers;
-
+use sys\http\Request;
 
 
 class MainController
 {
-	public function index($req){
+	public function index(Request $req){
 		$name = $req->input("name");
 		echo $name;
-		echo $req->env("HOST");
+		echo $req->env("DATABASE_NAME");
 
 	}
 	public function hoge($req){

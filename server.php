@@ -1,4 +1,0 @@
-<?php
-require_once "vendor/autoload.php";
-define('DOCUMENT_ROOT',__dir__);
-require_once DOCUMENT_ROOT . "/vendor/sys/index.php";
