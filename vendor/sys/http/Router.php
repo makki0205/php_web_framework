@@ -27,7 +27,7 @@ class Router
         $controller_name = $this->class_method_parse($this->routs[$this->requestValue]);
         $controller = $this->get_controller_instance($controller_name['class']);
         $this->method_check($controller, $controller_name["method"]);
-        $controller->$controller_name["method"]($this->req);
+        return $controller->$controller_name["method"]($this->req);
     }
 
     private function uri_charck(){

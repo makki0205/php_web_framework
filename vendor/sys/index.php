@@ -5,7 +5,8 @@ use sys\http\Router;
 
 require_once DOCUMENT_ROOT . '/vendor/sys/db/dbconfig.php';
 $router = new Router();
-$router->run();
+$msg = $router->run();
+echo ($msg);
 
 //
 ////データ取り出し
