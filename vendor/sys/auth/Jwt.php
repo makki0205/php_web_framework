@@ -25,7 +25,9 @@ class Jwt
     public function check_token($token){
         $token = explode(".", $token);
         $hash = base64_encode(hash_hmac('sha256', $token[0].".".$token[1], $this->req->env("JWT_KEY"), true));
-        if (!($token[2]==$hash)){
+        $hash = str_replace("+", " ", $hash);
+        $token[2] = str_replace("\\", "", $token[2]);
+        if (!($token[2]===$hash)){
             return "tokenが不正です。";
         }
         $payload = $this->base64_to_array($token[1]);
@@ -35,6 +37,10 @@ class Jwt
         }
         return false;
 
+    }
+    public function get_user_id($token){
+        $token = explode(".", $token);
+        return $this->base64_to_array($token[1])->id;
     }
     //有効期限が過ぎていたらtrueを返す
     private function check_expiration($date){

@@ -12,6 +12,7 @@ namespace sys\http;
 class Router
 {
     private $app_path = "\\app\\controllers\\";
+    private $middleware_path = "\\app\\middleware\\";
     public function __construct()
     {
         $this->uri = $_SERVER["REQUEST_URI"];
@@ -23,14 +24,17 @@ class Router
     }
 
     public function run(){
-        $this->uri_charck();
+        $this->uri_check();
         $controller_name = $this->class_method_parse($this->routs[$this->requestValue]);
-        $controller = $this->get_controller_instance($controller_name['class']);
+        $controller = $this->get_class_instance($controller_name['class']);
         $this->method_check($controller, $controller_name["method"]);
+        $err = $this->run_middleware($controller_name['middleware']);
+        if ($err){
+            return $err;
+        }
         return $controller->$controller_name["method"]($this->req);
     }
-
-    private function uri_charck(){
+    private function uri_check(){
         if (!isset($this->routs[$this->requestValue])) {
             http_response_code(404);
             echo "404";
@@ -42,11 +46,12 @@ class Router
         $controller = explode('@',$class_method);
         return [
             "class" => $this->app_path . $controller[0],
-            "method" => $controller[1]
+            "method" => $controller[1],
+            "middleware"=> array_slice($controller, 2)
         ];
     }
 
-    private function get_controller_instance($class_name){
+    private function get_class_instance($class_name){
         if (!class_exists($class_name)) {
             echo $class_name . " : Class not found";
             exit;
@@ -59,5 +64,16 @@ class Router
             echo get_class($instance) ." : : ". $method_name ."() : Method not found";
             exit;
         }
+    }
+
+    private function run_middleware($middlewares){
+        foreach ($middlewares as $middleware){
+            $instance = $this->get_class_instance($this->middleware_path . $middleware);
+            $err = $instance->run($this->req);
+            if ($err){
+                return $err;
+            }
+        }
+        return null;
     }
 }

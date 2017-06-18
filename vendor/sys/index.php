@@ -6,4 +6,5 @@ use sys\http\Router;
 require_once DOCUMENT_ROOT . '/vendor/sys/db/dbconfig.php';
 $router = new Router();
 $msg = $router->run();
+
 echo ($msg);

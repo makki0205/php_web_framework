@@ -4,13 +4,20 @@ namespace sys\http;
 class Request
 {
     private static $instance;
-
+    private $data = array();
     private function __construct()
     {
+
         $this->env_list = parse_ini_file(DOCUMENT_ROOT."/config.ini");
+    }
+    public function set_data($data){
+        $this->data += $data;
     }
     public function input($input_key)
     {
+        if (isset($this->data[$input_key])){
+            return $this->data[$input_key];
+        }
         if (isset($_GET[$input_key])) {
             return $_GET[$input_key];
         }

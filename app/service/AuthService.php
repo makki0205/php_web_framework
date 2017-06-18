@@ -21,4 +21,7 @@ class AuthService extends BaseService
     public function check_token($token){
         return $this->jwt->check_token($token);
     }
+    public function get_user_id($token){
+        return $this->jwt->get_user_id($token);
+    }
 }
