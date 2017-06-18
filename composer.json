@@ -1,0 +1,13 @@
+{
+    "autoload": {
+        "psr-4": {
+            "app\\": "app/",
+            "sys\\": "vendor/sys"
+        }
+    },
+    "require": {
+        "illuminate/database": "*",
+        "robmorgan/phinx": "^0.4.4",
+        "vlucas/valitron": "dev-master"
+    }
+}
