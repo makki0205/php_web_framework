@@ -2,17 +2,19 @@
 namespace app\controllers;
 use sys\http\Request;
 use sys\http\Controller;
-use app\models\User;
+use app\service\AuthService;
 
 class MainController extends Controller
 {
-	public function index(Request $req){
-//		$name = $req->input("name");
-//        User::create(["name"=>"hoge!!!", "password" => "!!!!AA"]);
-//        echo("hoge");
-        return $this->response_json(["hoge"=>"hoge"]);
-	}
-	public function hoge($req){
-		echo "疎通確認成功!!";
+    private $auth;
+    public function __construct(){
+        $this->auth = new AuthService();
+    }
+    public function index(Request $req){
+        $err = $this->auth->check_token($req->input('token'));
+        if ($err){
+            return $this->response_json($this->auth->err($err), 400);
+        }
+        return $this->response_json($this->auth->success());
 	}
 }

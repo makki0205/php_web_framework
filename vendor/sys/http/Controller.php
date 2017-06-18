@@ -11,7 +11,8 @@ namespace sys\http;
 
 class Controller
 {
-    protected function response_json($data){
+    protected function response_json($data, $code=200){
+        http_response_code($code);
         return json_encode($data);
     }
 }

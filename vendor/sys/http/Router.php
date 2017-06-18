@@ -19,7 +19,7 @@ class Router
         $this->method = strtolower($_SERVER["REQUEST_METHOD"]);
         $this->requestValue = $this->method . $this->uri;
         $this->routs = require_once DOCUMENT_ROOT . '/app/routs/routs.php';
-        return $this->req = Request::getInstance();
+        $this->req = Request::getInstance();
     }
 
     public function run(){

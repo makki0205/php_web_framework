@@ -2,5 +2,6 @@
 return [
 	'get/'=>'MainController@index',
 	'post/hoge'=>'MainController@hoge',
-	'get/test'=>'UserController@index'
+	'post/signin'=>'UserController@get_token',
+    'post/signup'=>'UserController@create_user',
 ];
